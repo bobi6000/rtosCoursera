@@ -79,7 +79,7 @@ mission critical applications that require provable dependability.
 #include <queue.h>
 #include <timers.h>
 #include <math.h>
-#include <stdio.h>
+
 
 /* This demo uses heap_5.c, and these constants define the sizes of the regions
 that make up the total heap.  This is only done to provide an example of heap_5
@@ -121,6 +121,28 @@ exhibit deterministic behaviour. */
 traceLabel xTickTraceUserEvent;
 static portBASE_TYPE xTraceRunning = pdTRUE;
 
+/*
+ * UPDATE TASKS
+ */
+#define Task1name Task1
+#define Task2name Task2
+#define Task1StackSize 1000
+#define Task2StackSize 100
+#define Task1priority 3
+#define Task2priority 1
+
+void Task1 (void){
+
+	while(1)
+	printf("This is task 1\n");
+	vTaskDelay(100);
+}
+
+void Task2 (void){
+	while(1)
+	printf("This is task 2");
+}
+
 /*-----------------------------------------------------------*/
 
 
@@ -136,6 +158,9 @@ int main(void)
 	events to the trace recording on each tick interrupt. */
 	vTraceInitTraceData();
 	xTickTraceUserEvent = xTraceOpenLabel("tick");
+
+	xTaskCreate(Task1,(signed char*)"Task1",Task1StackSize,NULL,Task1priority,NULL);
+//	xTaskCreate(Task2name,(signed char*)"Task2",Task2StackSize,NULL,Task2priority,NULL);
 
 	//This starts the real-time scheduler
 	vTaskStartScheduler();
@@ -194,7 +219,7 @@ void vAssertCalled(unsigned long ulLine, const char * const pcFileName)
 	(void)ulLine;
 	(void)pcFileName;
 
-	printf("ASSERT! Line %d, file %s\r\n", ulLine, pcFileName);
+	printf("ASSERT! Line %i, file %s\r\n", ulLine, pcFileName);
 
 	taskENTER_CRITICAL();
 	{
