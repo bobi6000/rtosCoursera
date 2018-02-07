@@ -133,14 +133,17 @@ static portBASE_TYPE xTraceRunning = pdTRUE;
 
 void Task1 (void){
 
-	while(1)
-	printf("This is task 1\n");
+	while(1){
+	printf("This is task 1 \n");
 	vTaskDelay(100);
+	}
 }
 
 void Task2 (void){
-	while(1)
-	printf("This is task 2");
+	while(1){
+	printf("This is task 2 \t");
+	vTaskDelay(500);
+	}
 }
 
 /*-----------------------------------------------------------*/
@@ -160,7 +163,7 @@ int main(void)
 	xTickTraceUserEvent = xTraceOpenLabel("tick");
 
 	xTaskCreate(Task1,(signed char*)"Task1",Task1StackSize,NULL,Task1priority,NULL);
-//	xTaskCreate(Task2name,(signed char*)"Task2",Task2StackSize,NULL,Task2priority,NULL);
+	xTaskCreate(Task2name,(signed char*)"Task2",Task2StackSize,NULL,Task2priority,NULL);
 
 	//This starts the real-time scheduler
 	vTaskStartScheduler();
