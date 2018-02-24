@@ -135,6 +135,7 @@ void Task1 (void){
 
 	while(1){
 	printf("This is task 1 \n");
+	fflush(stdout);
 	vTaskDelay(100);
 	}
 }
@@ -142,6 +143,7 @@ void Task1 (void){
 void Task2 (void){
 	while(1){
 	printf("This is task 2 \t");
+	fflush(stdout);
 	vTaskDelay(500);
 	}
 }
