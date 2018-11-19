@@ -121,6 +121,30 @@ static void prvSaveTraceFile( void );
 /* Notes if the trace is running or not. */
 static BaseType_t xTraceRunning = pdTRUE;
 
+/*-----------------------------------------------------------*/
+#define Task1Name "Task1"
+#define Task2Name "Task2"
+#define Task1StackSize  1000
+#define Task2StackSize  100
+#define Task1Priority   3
+#define Task2Priority   1
+
+/*-----------------------------------------------------------*/
+void vTask1Code(void){
+
+	for(;;){
+	printf("This is task 1");
+	fflush(stdout);
+	}
+}
+
+void vTask2Code(void){
+
+	for(;;){
+	printf("This is task 2");
+	fflush(stdout);
+	}
+}
 
 /*-----------------------------------------------------------*/
 
@@ -152,6 +176,10 @@ int main( void )
 		main_full();
 	}
 	#endif
+
+	xTaskCreate(vTask1Code,Task1Name,Task1StackSize,NULL,Task1Priority,NULL);
+	xTaskCreate(vTask2Code,Task2Name,Task2StackSize,NULL,Task2Priority,NULL);
+
 
 	return 0;
 }
@@ -341,4 +369,7 @@ const HeapRegion_t xHeapRegions[] =
 
 	vPortDefineHeapRegions( xHeapRegions );
 }
+/*-----------------------------------------------------------*/
+
+
 /*-----------------------------------------------------------*/
