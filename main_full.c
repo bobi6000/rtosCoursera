@@ -173,6 +173,11 @@ static SemaphoreHandle_t xMutexToDelete = NULL;
 
 /*-----------------------------------------------------------*/
 
+
+
+
+/*-----------------------------------------------------------*/
+
 int main_full( void )
 {
 	/* Start the check task as described at the top of this file. */
@@ -201,6 +206,9 @@ int main_full( void )
 	xTaskCreate( prvDemoQueueSpaceFunctions, "QSpace", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY, NULL );
 	xTaskCreate( prvPermanentlyBlockingSemaphoreTask, "BlockSem", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY, NULL );
 	xTaskCreate( prvPermanentlyBlockingNotificationTask, "BlockNoti", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY, NULL );
+
+
+
 
 	vStartMessageBufferTasks();
 	vStartStreamBufferTasks();

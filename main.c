@@ -121,6 +121,9 @@ static void prvSaveTraceFile( void );
 /* Notes if the trace is running or not. */
 static BaseType_t xTraceRunning = pdTRUE;
 
+
+
+
 /*-----------------------------------------------------------*/
 #define Task1Name "Task1"
 #define Task2Name "Task2"
@@ -129,20 +132,24 @@ static BaseType_t xTraceRunning = pdTRUE;
 #define Task1Priority   3
 #define Task2Priority   1
 
-/*-----------------------------------------------------------*/
+//void vTask1Code(void);
+//void vTask2Code(void);
+
 void vTask1Code(void){
 
-	for(;;){
-	printf("This is task 1");
+	while(1){
+	printf("\nThis is task 1\t");
 	fflush(stdout);
+	vTaskDelay(1000);
 	}
 }
 
 void vTask2Code(void){
 
-	for(;;){
+	while(1){
 	printf("This is task 2");
 	fflush(stdout);
+	vTaskDelay(5000);
 	}
 }
 
@@ -173,12 +180,14 @@ int main( void )
 		printf( "Uncomment the call to kbhit() in this file to also dump trace with a key press.\r\n" );
 		uiTraceStart();
 
+		xTaskCreate(vTask1Code,"Task1",Task1StackSize,NULL,Task1Priority,NULL);
+		xTaskCreate(vTask2Code,"Task2",Task2StackSize,NULL,Task2Priority,NULL);
+
 		main_full();
 	}
 	#endif
 
-	xTaskCreate(vTask1Code,Task1Name,Task1StackSize,NULL,Task1Priority,NULL);
-	xTaskCreate(vTask2Code,Task2Name,Task2StackSize,NULL,Task2Priority,NULL);
+
 
 
 	return 0;
